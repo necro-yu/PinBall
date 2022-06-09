@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class BrightnessRegulator : MonoBehaviour
 {
-    //ゲームオーバを表示するテキスト
-    private GameObject scoreText;
     // Materialを入れる
     Material myMaterial;
 
@@ -19,23 +17,12 @@ public class BrightnessRegulator : MonoBehaviour
     //発光速度
     private int speed = 5;
 
-    //加算スコア
-    private int sStar = 100;
-    private int lStar = 300;
-    private int sCloud = 50;
-    private int lCloud = 100;
-    // 合計スコア
-    private int score = 0;
-
     // ターゲットのデフォルトの色
     Color defaultColor = Color.white;
 
     // Use this for initialization
     void Start()
     {
-        // スコアオブジェクト取得
-        this.scoreText = GameObject.Find("ScoreText");
-
         // タグによって光らせる色を変える
         if (tag == "SmallStarTag")
         {
@@ -79,25 +66,5 @@ public class BrightnessRegulator : MonoBehaviour
     {
         //角度を180に設定
         this.degree = 180;
-
-        // 衝突したモノによって得点を分ける
-        if (tag == "SmallStarTag")
-        {
-            score += sStar;
-        }
-        else if (tag == "LargeStarTag")
-        {
-            score += lStar;
-        }
-        else if (tag == "SmallCloudTag")
-        {
-            score += sCloud;
-        }
-        else if (tag == "LargeCloudTag")
-        {
-            score += lCloud;
-        }
-
-        this.scoreText.GetComponent<Text>().text = "Score：" + score;
     }
 }

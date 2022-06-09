@@ -10,12 +10,24 @@ public class BallController : MonoBehaviour
 
     //ゲームオーバを表示するテキスト
     private GameObject gameoverText;
+    //ゲームオーバを表示するテキスト
+    private GameObject scoreText;
+
+    //加算スコア
+    private int sStar = 100;
+    private int lStar = 300;
+    private int sCloud = 50;
+    private int lCloud = 100;
+    // 合計スコア
+    private int score = 0;
 
     // Use this for initialization
     void Start()
     {
         //シーン中のGameOverTextオブジェクトを取得
         this.gameoverText = GameObject.Find("GameOverText");
+        // スコアオブジェクト取得
+        this.scoreText = GameObject.Find("ScoreText");
     }
 
     // Update is called once per frame
@@ -27,5 +39,28 @@ public class BallController : MonoBehaviour
             //GameoverTextにゲームオーバを表示
             this.gameoverText.GetComponent<Text>().text = "Game Over";
         }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        // 衝突したモノによって得点を分ける
+        if (collision.gameObject.tag == "SmallStarTag")
+        {
+            score += sStar;
+        }
+        else if (collision.gameObject.tag == "LargeStarTag")
+        {
+            score += lStar;
+        }
+        else if (collision.gameObject.tag == "SmallCloudTag")
+        {
+            score += sCloud;
+        }
+        else if (collision.gameObject.tag == "LargeCloudTag")
+        {
+            score += lCloud;
+        }
+
+        this.scoreText.GetComponent<Text>().text = "Score：" + score;
     }
 }
